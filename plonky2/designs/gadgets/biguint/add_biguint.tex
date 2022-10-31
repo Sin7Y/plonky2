@@ -30,11 +30,16 @@ Take uint128 as example, the same as other texs.
     
     \item constraints-info and costs
         \begin{itemize}
-            \item constraints_num: 4 * (3 + 32 / 2) = 76
-            \item copy_constraints: 21
+            \item constraints_num: 5 * (3 + 32 / 2 + 4 / 2) = 105
+            \item copy_constraints: 4 * 5 + 6 = 26
             \item max_degree: 4
-            \item wires_num: 4 * (5 + 16) = 84
+            \item wires_num: 5 * (5 + 16 + 2) = 115
         \end{itemize}
 
+    \item questions
+        \begin{itemize}
+            \item why not make rangecheck constraint for inputs?
+            \item why not make copy constraint between cur_c_in and last_c_out?
+        \end{itemize}
 
 \end{enumerate}
