@@ -1,10 +1,10 @@
-\section{sub_biguint}
-\label{sub_biguint}
+\section{sub-biguint}
+\label{sub-biguint}
 
 \begin{enumerate}
     \item target
         implenment the substraction of two biguints.
-    \item constraints_logic
+    \item constraints-logic
         \begin{itemize}
             \item equation for gate
             \item sumcheck for ouptput 
@@ -13,31 +13,31 @@
     \item circuit layout
         \begin{figure}[!ht]
             \centering
-            \includegraphics[width=0.8\textwidth]{sub_biguint_circuit_layout.jpg}
-            \caption{Sub_biguint circuit layout}
-            \label{fig:sub_biguint_circuit_layout}
+            \includegraphics[width=0.8\textwidth]{sub-biguint-circuit-layout.jpg}
+            \caption{Sub-biguint circuit layout}
+            \label{fig:sub-biguint-circuit-layout}
         \end{figure}
 
     \item trace layout
         \begin{figure}[!ht]
             \centering
-            \includegraphics[width=0.8\textwidth]{sub_biguint_trace_layout.jpg}
-            \caption{Sub_biguint trace layout}
-            \label{fig:sub_biguint_trace_layout}
+            \includegraphics[width=0.8\textwidth]{sub-biguint-trace-layout.jpg}
+            \caption{Sub-biguint trace layout}
+            \label{fig:sub-biguint-trace-layout}
         \end{figure}
     
     \item constraints-info and costs
         \begin{itemize}
-            \item constraints_num: 6 * (3 + 32 / 2) = 114
-            \item copy_constraints: 16
-            \item max_degree: 4
-            \item wires_num: 6 * (5 + 16) = 126
+            \item constraints-num: 6 * (3 + 32 / 2) = 114
+            \item copy-constraints: 16
+            \item max-degree: 4
+            \item wires-num: 6 * (5 + 16) = 126
         \end{itemize}
 
     \item questions
         \begin{itemize}
             \item why not make rangecheck constraint for inputs?
-            \item Could try to use the same constraint with add_gate.
+            \item Could try to use the same constraint with add-gate.
         \end{itemize}
 
 \end{enumerate}

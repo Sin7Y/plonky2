@@ -1,12 +1,12 @@
-\section{add_biguint}
-\label{add_biguint}
+\section{add-biguint}
+\label{add-biguint}
 
 Take uint128 as example, the same as other texs.
 
 \begin{enumerate}
     \item target
         implenment the addition of two biguints.
-    \item constraints_logic
+    \item constraints-logic
         \begin{itemize}
             \item equation for gate
             \item sumcheck between ouptput and limbs
@@ -15,31 +15,31 @@ Take uint128 as example, the same as other texs.
     \item circuit layout
         \begin{figure}[!ht]
             \centering
-            \includegraphics[width=0.8\textwidth]{add_biguint_circuit_layout.jpg}
-            \caption{Add_biguint circuit layout}
-            \label{fig:add_biguint_circuit_layout}
+            \includegraphics[width=0.8\textwidth]{add-biguint-circuit-layout.jpg}
+            \caption{Add-biguint-circuit-layout}
+            \label{fig:add-biguint-circuit-layout}
         \end{figure}
 
     \item trace layout
         \begin{figure}[!ht]
             \centering
-            \includegraphics[width=0.8\textwidth]{add_biguint_trace_layout.jpg}
-            \caption{Add_biguint trace layout}
-            \label{fig:add_biguint_trace_layout}
+            \includegraphics[width=0.8\textwidth]{add-biguint-trace-layout.jpg}
+            \caption{Add-biguint trace layout}
+            \label{fig:add-biguint-trace-layout}
         \end{figure}
     
     \item constraints-info and costs
         \begin{itemize}
-            \item constraints_num: 5 * (3 + 32 / 2 + 4 / 2) = 105
-            \item copy_constraints: 4 * 5 + 6 = 26
-            \item max_degree: 4
-            \item wires_num: 5 * (6 + 16 + 2) = 120
+            \item constraints-num: 5 * (3 + 32 / 2 + 4 / 2) = 105
+            \item copy-constraints: 4 * 5 + 6 = 26
+            \item max-degree: 4
+            \item wires-num: 5 * (6 + 16 + 2) = 120
         \end{itemize}
 
     \item questions
         \begin{itemize}
             \item why not make rangecheck constraint for inputs?
-            \item why not make copy constraint between cur_c_in and last_c_out?
+            \item why not make copy constraint between cur-c-in and last-c-out?
         \end{itemize}
 
 \end{enumerate}
