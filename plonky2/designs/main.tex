@@ -1,0 +1,28 @@
+\documentclass{elegantpaper}
+\usepackage{datetime2}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+
+\DTMusemodule{english}{en-GB}
+\DTMnewdatestyle{short}{
+  \renewcommand{\DTMdisplaydate}[4]{
+    \DTMenglishmonthname{##2} \number##1\relax
+  }
+  \renewcommand{\DTMDisplaydate}{\DTMdisplaydate}
+}
+\newcommand{\shorttoday}{{\DTMsetdatestyle{short}\today}}
+\renewcommand{\updatetext}{}
+
+\graphicspath{{./images/}}
+\DeclareEmphSequence{\bfseries,\itshape,\upshape}
+
+\title{}
+\author{Sin7Y, Applied R\&D Team\thanks{\url{https://twitter.com/Sin7Y_Labs}}}
+\date{\shorttoday}
+
+\begin{document}
+    \maketitle
+    \tableofcontents
+
+    \printbibliography[heading=bibintoc, title=\ebibname]
+\end{document}
