@@ -4,7 +4,7 @@
 \begin{enumerate}
     \item target
         \begin{itemize}
-            \item implenment the multiplication of two biguints
+            \item implement the multiplication of two biguints
         \end{itemize}
     \item constraints-logic
         \begin{itemize}
@@ -21,14 +21,12 @@
     
     \item constraints-info and costs
         \begin{itemize}
-            \item Gate type num: 4
+            \item Gate type num: 4(U32ArithmeticGate, U32AddManyGate(num-addends: 4), U32AddManyGate(num-addends: 6), U32AddManyGate(num-addends: 8))
             \item Gate instance num: 9
-            \item U32ArithmeticGate num: 4 * 4 + 2= 18
-            \item U32AddManyGate num: 6
-            \item constraints-num: 18 * (4 + 32) + (3 + 18) * (6 + 5 + 5) = 984
+            \item U32ArithmeticGate num: 6
+            \item U32AddManyGate num: 3
             \item copy-constraints: 18 * 3 + (4 + 6 + 8) * 2 + 9 = 99
             \item max-degree: 4
-            \item wires-num: 18 * (6 + 32) + 6 * (3 + 18) + 5 * (5 + 18) + 5 * (7 + 18) = 1050
         \end{itemize}
 
 \end{enumerate}

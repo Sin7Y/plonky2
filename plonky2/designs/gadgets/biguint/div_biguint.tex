@@ -1,34 +1,38 @@
 \section{div-biguint}
 \label{div-biguint}
 
+Note that div-rem has the same constraints logic with div
+
 \begin{enumerate}
     \item target
         \begin{itemize}
-            \item implenment the division of two biguints
+            \item implement the division of two biguints
         \end{itemize}
     \item constraints-logic
         \begin{itemize}
-            \item compute mul-factors first, use U32ArithmeticGate
-            \item add mul-factors from low bits, use U32AddManyGate
+            \item not implement div-algrithem directly
+            \item use nondeterministic feature to check div-logic
+            \item check div * b + rem = a
+            \item check rem < b
         \end{itemize}
-    \item mul-process layout
+    \item div-process layout
         \begin{figure}[!ht]
             \centering
-            \includegraphics[width=0.8\textwidth]{mul-biguint-layout.jpg}
-            \caption{Mul-biguint layout.jpg}
-            \label{fig:mul-biguint-layout.jpg}
+            \includegraphics[width=0.8\textwidth]{div-biguint-layout.jpg}
+            \caption{Div-biguint-layout.jpg}
+            \label{fig:div-biguint-layout.jpg}
         \end{figure}
     
     \item constraints-info and costs
         \begin{itemize}
-            \item Gate type num: 4
-            \item Gate instance num: 9
-            \item U32ArithmeticGate num: 4 * 4 + 2= 18
-            \item U32AddManyGate num: 6
-            \item constraints-num: 18 * (4 + 32) + (3 + 18) * (6 + 5 + 5) = 984
-            \item copy-constraints: 18 * 3 + (4 + 6 + 8) * 2 + 9 = 99
+            \item Gate type num: 5(U32ArithmeticGate, U32AddManyGate(num-addends: 3), U32AddManyGate(num-addends: 4), ComparisionGate, ArithmeticGate)
+            \item Gate instance num: 3 + 3 + 4 + 3 = 13 
+            \item U32ArithmeticGate num: 3
+            \item U32AddManyGate num: 3
+            \item ComparisionGate num: 4
+            \item ArithmeticGate num: 3
+            \item copy-constraints: 3 * 8 + 4 + 5 + 4 + 4 * 6 + 7 + 1 + 26 + 5 = 100 
             \item max-degree: 4
-            \item wires-num: 18 * (6 + 32) + 6 * (3 + 18) + 5 * (5 + 18) + 5 * (7 + 18) = 1050
         \end{itemize}
 
 \end{enumerate}
