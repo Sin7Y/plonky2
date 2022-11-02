@@ -1,0 +1,31 @@
+\section{nonnative-mul}
+\label{nonnative-mul}
+
+\begin{enumerate}
+    \item target
+        check the multiplicatipn relation among three nonnative target objects.
+    \item constraints-logic
+        \begin{itemize}
+            \item check equation for gadget,  a * b = prod + modular * overflow
+            \item check that "overflow.limb is U32"
+            \item check that "prod.limb is U32"
+        \end{itemize}
+    \item nonnative-mul process layout
+        \begin{figure}[!ht]
+            \centering
+            \includegraphics[width=0.8\textwidth]{nonnative-mul-layout.jpg}
+            \caption{nonnative-mul layout}
+            \label{fig:nonnative-mul-layout}
+        \end{figure}
+    
+    \item constraints-info and costs
+        \begin{itemize}
+            \item gadget biguint-add num: 1
+            \item gadget biguint-mul num: 2
+            \item gadget u32rangecheck num: 2
+            \item gate type num: 9 = 7(U32AddManyGate{3,5,7,9,11,13,15}) + 1(U32RangeCheckGate) + 1(U32ArithmeticGate)
+            \item gate instance num: 37
+            \item copy-constraints: 583
+        \end{itemize}
+
+\end{enumerate}
