@@ -480,4 +480,5 @@ mod tests {
 
         data.verify(proof)
     }
+
 }

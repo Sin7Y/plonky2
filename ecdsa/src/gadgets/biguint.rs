@@ -479,7 +479,7 @@ mod tests {
         let mut rng = rand::thread_rng();
 
         let mut x_value = BigUint::from_u128(rng.gen()).unwrap();
-        let mut y_value = BigUint::from_u64(rng.gen()).unwrap();
+        let mut y_value = BigUint::from_u128(rng.gen()).unwrap();
         if y_value > x_value {
             (x_value, y_value) = (y_value, x_value);
         }

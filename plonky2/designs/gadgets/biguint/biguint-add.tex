@@ -30,10 +30,11 @@ Take uint128 as example, the same as other texs.
     
     \item constraints-info and costs
         \begin{itemize}
-            \item constraints-num: 5 * (3 + 32 / 2 + 4 / 2) = 105
-            \item copy-constraints: 4 * 5 + 6 = 26
-            \item max-degree: 4
-            \item wires-num: 5 * (6 + 16 + 2) = 120
+            \item gate type num: 1(U32AddManyGate)
+            \item gate ops num: limbs-num
+            \item gate instance num: ceil(limbs-num / gate.ops)
+            \item copy-constraints: limbs-num * 4
+            \item max-degree: 4(1 << limb-bits)
         \end{itemize}
 
     \item questions

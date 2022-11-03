@@ -1,0 +1,41 @@
+\section{curve-double}
+\label{curve-double}
+
+Take curve-secp256k1 as example, the same as other texs.
+
+\begin{enumerate}
+    \item target
+        implement the addition of two same curve points. this is a incomplete addition, you can refer to The halo2 Book \cite{website:halo2-book} to learn more about it.
+    \item constraints-logic (x\_1, y\_1) = (x\_2,y\_2)
+        \begin{figure}[!ht]
+            \centering
+            \includegraphics[width=0.8\textwidth]{curve-add.jpg}
+            \caption{curve-add}
+            \label{fig:curve-add}
+        \end{figure}
+    \item curve-double process layout
+        \begin{figure}[!ht]
+            \centering
+            \includegraphics[width=0.8\textwidth]{curve-double-layout.jpg}
+            \caption{curve-double layout}
+            \label{fig:curve-double-layout}
+        \end{figure}
+    
+    \item constraints-info and costs
+        \begin{itemize}
+            \item gadget-sub-nonnative num: 3
+            \item gadget-add-nonnative num: 5
+            \item gadget-mul-nonnative num: 4
+            \item gadget-inv-nonnative num: 1
+            \item gate type num: 14
+                \begin{itemize}
+                    \item 8: U32AddManyGate{2,3,5,7,9,11,13,15}
+                    \item 1: ComparisonGate
+                    \item 1: ArithmeticGate
+                    \item 1: U32ArithmeticGate
+                    \item 1: U32SubtractionGate
+                    \item 2: U32RangeCheckGate{0,8}
+                \end{itemize}
+        \end{itemize}
+
+\end{enumerate}
