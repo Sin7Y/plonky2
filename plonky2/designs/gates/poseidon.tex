@@ -115,13 +115,15 @@ result
         \item Perform 22 round sbox, for the first 21 rounds (r = 0..=21):
         \begin{itemize}
             \item Take sbox\_in(yellow elements in the figure), and constrains state[0]=sbox\_in -- 21 rounds totally 21 constraints.
-            \item $state[0]^=7$
+            \item $state[0] =state[0]^7$
             \item $state[0] += FAST\_PARTIAL\_ROUND\_CONSTANTS[r]$
             \item Perform mds to state.
         \end{itemize}
         \item For the 22th round:
         \begin{itemize}
-            \item asdf
+            \item $state[0] = sbox\_in$ -- i constraint
+            \item $state[0] =state[0]^7$
+            \item Perform mds to state.
         \end{itemize}
     \end{itemize}
     \item Perform second round "Full rounds", same with the first round.(the green part of the second slice of the figure). -- 12 constraints, 4 rounds totally 48 constraints.
