@@ -18,13 +18,13 @@ RandomAccessGate is used for verify that an element matches a value in the list.
 
 For each copy:
 \begin{itemize}
-    \item Constrain bits are 0 or 1. -- bits constraints for each copy, totally num\_copied*bits constraints.
+    \item Constrain bits are 0 or 1. -- bits constraints for each copy, A total of num\_copied*bits constraints.
     \begin{lstlisting}
 for &b in &bits {
     constraints.push(builder.mul_sub_extension(b, b, b));
 }
     \end{lstlisting}
-    \item Constraint copy consists of bits. -- 1 constraint for each copy, totally num\_copied constraints.
+    \item Constraint copy consists of bits. -- 1 constraint for each copy, A total of num\_copied constraints.
     \begin{lstlisting}
 let reconstructed_index = bits
     .iter()
@@ -54,4 +54,4 @@ constraints.push(builder.sub_extension(list_items[0], claimed_element));
     \end{lstlisting}
 \end{itemize}
 
-Finally, the constant is constrained -- totally num\_extra\_constraints constraints.
+Finally, the constant is constrained -- A total of num\_extra\_constraints constraints.
