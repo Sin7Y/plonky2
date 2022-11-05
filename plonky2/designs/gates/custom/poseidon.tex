@@ -3,7 +3,7 @@
 \href{https://www.poseidon-hash.info/}{Poseidon} is a hash function designed for zero-Knowledge proof system.
 Its calculation process is roughly as follows:
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=0.8\textwidth]{gates/poseidon_process.jpeg}
     \caption{Construction of poseidon}
@@ -18,7 +18,7 @@ Each round function of poseidon permutation consists of the following three comp
 \end{enumerate}
 
 Trace of the gate is like:
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=0.8\textwidth]{gates/poseidon.jpeg}
     \caption{PoseidonGate}
@@ -48,7 +48,7 @@ for i in 0..4 {
 }
     \end{lstlisting}
     \item Initialize state: when swap=0, state=input; when swap=1, state is swapped input:
-    \begin{figure}[!h]
+    \begin{figure}[!ht]
         \centering
         \includegraphics[width=0.8\textwidth]{gates/poseidon_state_init.jpeg}
         \caption{Poseidon State Init}
