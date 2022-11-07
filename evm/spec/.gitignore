@@ -5,3 +5,11 @@
 *.toc
 *.bbl
 *.blg
+*.fdb_latexmk
+*.fls
+*.pdf
+*.synctex
+*.synctex(busy)
+*.synctex.gz
+*.synctex.gz(busy)
+*.pdfsync
