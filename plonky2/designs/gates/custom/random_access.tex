@@ -55,3 +55,5 @@ constraints.push(builder.sub_extension(list_items[0], claimed_element));
 \end{itemize}
 
 Finally, the constant is constrained -- A total of num\_extra\_constraints constraints.
+
+In summary, there're $num\_copies*(bits + 2) + num\_extra\_constants$ constraints. Degree is $bits + 1$ which happens when repeatedly folding the list. 

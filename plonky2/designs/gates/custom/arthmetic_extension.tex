@@ -3,7 +3,7 @@
 To understand the design principle of this Gate, we must first understand \href{https://en.wikipedia.org/wiki/Field_extension#Extension_field}{Field extension}. 
 
 
-Taking Plonky2's GoldilocksField as an example, we give the extension field elements under quadratic, quartic and quintic expansions respectively:
+Taking Plonky2's GoldilocksField as an example, we give the extension field elements under quadratic, quartic and quintic expansions respectively in figure \ref{fig:goldilocksfield-extension}
 
 \begin{figure}[!ht]
     \centering
@@ -19,9 +19,12 @@ ArithmeticExtensionGate is also a gate which can perform a weighted multiply-add
 \[res = cons\_0 * mul\_0 * mul\_1 + cons\_1 * add\]
 The elements of the QuadraticExtension Field are represented in the form $[a, b]$, so the Gate design for arithmetic\_extension has the following form:
 
+The structure of gate is shown in figure \ref{fig:arthmetic-extension}.
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.8\textwidth]{gates/arthmetic_extension.jpeg}
     \caption{ArithmeticExtensionGate}
     \label{fig:arthmetic-extension}
 \end{figure}
+
+There's only one constraint per operation, and degree is 3.
