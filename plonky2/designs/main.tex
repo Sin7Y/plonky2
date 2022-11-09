@@ -24,22 +24,9 @@
 \begin{document}
     \maketitle
     \tableofcontents
+    \input{circuit config/main} 
     \input{gates/main}
-    \input{gadgets/biguint/biguint-add}
-    \input{gadgets/biguint/biguint-sub}
-    \input{gadgets/biguint/biguint-mul}
-    \input{gadgets/biguint/biguint-div}
-    \input{gadgets/biguint/biguint-cmp}
-    \input{gadgets/nonnative/nonnative-add}
-    \input{gadgets/nonnative/nonnative-sub}
-    \input{gadgets/nonnative/nonnative-mul}
-    \input{gadgets/nonnative/nonnative-inv}
-    \input{gadgets/curve/curve-add}
-    \input{gadgets/curve/curve-double}
-    \input{gadgets/curve/curve-assert-valid}  
-    \input{gadgets/curve/curve-msm}
-    \input{gadgets/curve/curve-scalar}
-    \input{gadgets/ecdsa}
+    \input{gadgets/main}   
     \input{protocol/circuit-build}
     %\printbibliography[heading=bibintoc, title=\ebibname]%
 \end{document}

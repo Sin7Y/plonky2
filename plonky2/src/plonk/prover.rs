@@ -400,6 +400,8 @@ fn compute_quotient_polys<
                 s_sigmas_batch.push(s_sigmas);
             }
 
+
+
             // NB (JN): I'm not sure how (in)efficient the below is. It needs measuring.
             let mut local_constants_batch =
                 vec![F::ZERO; xs_batch.len() * local_constants_batch_refs[0].len()];
