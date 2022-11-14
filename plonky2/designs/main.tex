@@ -3,6 +3,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
 \usepackage{listings}
+\usepackage{listings-rust}
 
 \DTMusemodule{english}{en-GB}
 \DTMnewdatestyle{short}{
@@ -17,6 +18,10 @@
 \graphicspath{{./images/}}
 \DeclareEmphSequence{\bfseries,\itshape,\upshape}
 
+\newcommand{\Par}[1]{\noindent\emph{#1} \enspace}
+
+\newcommand{\FF}{\mathbb{F}}
+
 \title{}
 \author{Sin7Y, Applied R\&D Team\thanks{\url{https://twitter.com/Sin7Y_Labs}}}
 \date{\shorttoday}
@@ -25,9 +30,9 @@
     \maketitle
     \tableofcontents
     \newpage
-    \input{circuit config/main} 
+    \input{circuit-config/main} 
     \input{gates/main}
     \input{gadgets/main}   
     \input{protocol/main}
-    %\printbibliography[heading=bibintoc, title=\ebibname]%
+    \printbibliography[heading=bibintoc, title=\ebibname]
 \end{document}

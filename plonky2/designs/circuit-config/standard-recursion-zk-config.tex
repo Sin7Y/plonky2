@@ -1,17 +1,16 @@
-\subsubsection{standard-ecc-config}
-\label{standard-ecc-config}
+\subsubsection{standard-recursion-zk-config}
 
 
-\begin{lstlisting}
-pub fn standard_ecc_config() -> Self {
+\begin{lstlisting}[language=rust]
+pub fn standard-recursion-zk-config() -> Self {
     Self {
-        num_wires: 136,
+        num_wires: 135,
         num_routed_wires: 80,
         num_constants: 2,
         use_base_arithmetic_gate: true,
         security_bits: 100,
         num_challenges: 2,
-        zero_knowledge: false,
+        zero_knowledge: true,
         max_quotient_degree_factor: 8,
         fri_config: FriConfig {
             rate_bits: 3,
@@ -21,5 +20,5 @@ pub fn standard_ecc_config() -> Self {
             num_query_rounds: 28,
         },
     }
-}   
+}
 \end{lstlisting}

@@ -1,9 +1,9 @@
 \subsubsection{subtraction\_u32}
 
-U32SubtractionGate is a gate to perform a subtraction on 32-bit limbs: given `x`, `y`, and `borrow`, it returns 
-the result $x - y - borrow$ and, if this underflows, a new `borrow`.
+U32SubtractionGate is a gate to perform a subtraction on 32-bit limbs: given `x', `y', and `borrow', it returns 
+the result $x - y - \text{borrow}$ and, if this underflows, a new `borrow'.
 
-Gate structure is like figure \ref{fig:subtraction-u32}.
+Gate structure is like \figref{fig:subtraction-u32}.
 
 \begin{figure}[!ht]
     \centering
@@ -15,12 +15,12 @@ Gate structure is like figure \ref{fig:subtraction-u32}.
 Constraints for each operation:
 \begin{itemize}
     \item Constrain the calculation. -- 1 constraint with degree 2.
-    \begin{lstlisting}
+    \begin{lstlisting}[language=rust]
 let result_initial = input_x - input_y - input_borrow;
 ...
 constraints.push(output_result - (result_initial + base * output_borrow));
     \end{lstlisting}
-    \item Limbs range check. -- 16(limbs) constraints with degree 4.(limbs are all 2-bits)
+    \item Limbs range check. -- 16 (limbs) constraints with degree 4. (limbs are all 2-bits)
     \item Constrain limbs for res. -- 1 constraint with degree 1.
     \item Constrain borrow\_out to be one bit. -- 1 constraint with degree 1.
 \end{itemize}

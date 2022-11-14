@@ -1,11 +1,10 @@
-\subsubsection{standard-recursion-config}
-\label{tandard-recursion-config}
+\subsubsection{wide-ecc-config}
 
 
-\begin{lstlisting}
-pub fn standard_recursion_config() -> Self {
+\begin{lstlisting}[language=rust]
+pub fn wide_ecc_config() -> Self {
     Self {
-        num_wires: 135,
+        num_wires: 234,
         num_routed_wires: 80,
         num_constants: 2,
         use_base_arithmetic_gate: true,
@@ -21,5 +20,5 @@ pub fn standard_recursion_config() -> Self {
             num_query_rounds: 28,
         },
     }
-}  
+} 
 \end{lstlisting}

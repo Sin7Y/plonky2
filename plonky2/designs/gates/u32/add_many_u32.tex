@@ -3,7 +3,7 @@
 U32AddManyGate is a gate to perform addition on num\_addends different 32-bit values, plus a small carry. 
 There can be up to 16 operations per gate.
 
-Gate structure is like figure \ref{fig:add-many-u32}.
+Gate structure is like \figref{fig:add-many-u32}.
 
 \begin{figure}[!ht]
     \centering
@@ -15,13 +15,13 @@ Gate structure is like figure \ref{fig:add-many-u32}.
 Constraints for each operation:
 \begin{itemize}
     \item Constrain the result of addends summation equals results of res and carry\_out calculation. -- 1 constraint with degree 1
-    \begin{lstlisting}
+    \begin{lstlisting}[language=rust]
 let base = F::Extension::from_canonical_u64(1 << 32u64);
 let combined_output = output_carry * base + output_result;
 constraints.push(combined_output - computed_output);
     \end{lstlisting}
     \item Limbs range check. -- 18(limbs) constraints with degree 4.(limbs are all 2-bits)
-    \begin{lstlisting}
+    \begin{lstlisting}[language=rust]
 let product = (0..max_limb)
     .map(|x| this_limb - F::Extension::from_canonical_usize(x))
     .product();

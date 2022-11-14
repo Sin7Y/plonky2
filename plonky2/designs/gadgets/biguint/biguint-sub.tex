@@ -1,43 +1,43 @@
 \subsubsection{biguint-sub}
-\label{biguint-sub}
 
-\begin{enumerate}
-    \item target
-        implenmet the substraction of two biguints.
-    \item constraints-logic
-        \begin{itemize}
-            \item equation for gate
-            \item sumcheck for ouptput 
-            \item rangecheck for limbs
-        \end{itemize}
-    \item circuit layout
-        \begin{figure}[!ht]
-            \centering
-            \includegraphics[width=0.8\textwidth]{biguint-sub-circuit-layout.jpg}
-            \caption{biguint-sub circuit layout}
-            \label{fig:biguint-sub-circuit-layout}
-        \end{figure}
+\Par{Target}
+Implement the substraction of two biguints.
 
-    \item trace layout
-        \begin{figure}[!ht]
-            \centering
-            \includegraphics[width=0.8\textwidth]{biguint-sub-trace-layout.jpg}
-            \caption{biguint-sub trace layout}
-            \label{fig:biguint-sub-trace-layout}
-        \end{figure}
-    
-    \item constraints-info and costs
-        \begin{itemize}
-            \item constraints-num: 6 * (3 + 32 / 2) = 114
-            \item copy-constraints: 16
-            \item max-degree: 4
-            \item wires-num: 6 * (5 + 16) = 126
-        \end{itemize}
+\Par{Constraints logic}
+\begin{itemize}
+    \item Equation for gate;
+    \item Sumcheck for ouptput;
+    \item Rangecheck for limbs.
+\end{itemize}
 
-    \item questions
-        \begin{itemize}
-            \item why not make rangecheck constraint for inputs?
-            \item Could try to use the same constraint with add-gate.
-        \end{itemize}
+\Par{Circuit layout}
+See \figref{fig:biguint-sub-circuit-layout}.
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{biguint-sub-circuit-layout.jpg}
+    \caption{biguint-sub circuit layout}
+    \label{fig:biguint-sub-circuit-layout}
+\end{figure}
 
-\end{enumerate}
+\Par{Trace layout}
+See \figref{fig:biguint-sub-trace-layout}.
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{biguint-sub-trace-layout.jpg}
+    \caption{biguint-sub trace layout}
+    \label{fig:biguint-sub-trace-layout}
+\end{figure}
+
+\Par{Constraints info and costs}
+\begin{itemize}
+    \item constraints-num: $6 \times (3 + 32 / 2) = 114$
+    \item copy-constraints: $16$
+    \item max-degree: $4$
+    \item wires-num: $6 \times (5 + 16) = 126$
+\end{itemize}
+
+\Par{Questions}
+\begin{itemize}
+    \item Why not make rangecheck constraint for inputs?
+    \item Could try to use the same constraint with add-gate.
+\end{itemize}

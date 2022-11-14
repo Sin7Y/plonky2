@@ -1,21 +1,18 @@
 \subsubsection{ecdsa}
-\label{ecdsa}
 
-Take curve-secp256k1 as example, the same as other texs.
+\Par{Target}
+Implement ecdsa verify process.
 
-\begin{enumerate}
-    \item target
-        implement ecdsa verify process. 
-    \item constraints-logic
-        \begin{figure}[!ht]
-            \centering
-            \includegraphics[width=0.8\textwidth]{ecdsa.jpg}
-            \caption{ecdsa}
-            \label{fig:ecdsa}
-        \end{figure}  
-    \item constraints-info and costs
-        \begin{itemize}
-            \item gate type num: 16
-            \item gate instance num: 98039
-        \end{itemize}
-\end{enumerate}
+\Par{Constraints logic}
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{ecdsa.jpg}
+    \caption{ecdsa}
+    \label{fig:ecdsa}
+\end{figure}
+
+\Par{Constraints info and costs}
+\begin{itemize}
+    \item gate type num: 16
+    \item gate instance num: 98039
+\end{itemize}

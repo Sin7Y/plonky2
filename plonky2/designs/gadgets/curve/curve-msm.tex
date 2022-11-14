@@ -1,22 +1,19 @@
 \subsubsection{curve-msm}
-\label{curve-msm}
 
-Take curve-secp256k1 as example, the same as other texs.
+\Par{target}
+Implement the multiplication scalar multiplication (MSM).
 
-\begin{enumerate}
-    \item target
-        implement the multiplication scalar multiplicaiton(msm). 
-    \item constraints-logic
-        \begin{figure}[!ht]
-            \centering
-            \includegraphics[width=0.8\textwidth]{curve-msm.jpg}
-            \caption{curve-msm}
-            \label{fig:curve-msm}
-        \end{figure}
-    
-    \item constraints-info and costs
-        \begin{itemize}
-            \item gate type num: 14
-            \item gate instance num: 147553
-        \end{itemize}
-\end{enumerate}
+\Par{Constraints logic}
+See \figref{fig:curve-msm}.
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{curve-msm.jpg}
+    \caption{curve-msm}
+    \label{fig:curve-msm}
+\end{figure}
+
+\Par{Constraints info and costs}
+\begin{itemize}
+    \item gate type num: 14
+    \item gate instance num: 147553
+\end{itemize}

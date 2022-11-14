@@ -1,9 +1,8 @@
-\subsubsection{standard-recursion-zk-config}
-\label{standard-recursion-zk-config}
+\subsubsection{standard-recursion-config}
 
 
-\begin{lstlisting}
-pub fn standard-recursion-zk-config() -> Self {
+\begin{lstlisting}[language=rust]
+pub fn standard_recursion_config() -> Self {
     Self {
         num_wires: 135,
         num_routed_wires: 80,
@@ -11,7 +10,7 @@ pub fn standard-recursion-zk-config() -> Self {
         use_base_arithmetic_gate: true,
         security_bits: 100,
         num_challenges: 2,
-        zero_knowledge: true,
+        zero_knowledge: false,
         max_quotient_degree_factor: 8,
         fri_config: FriConfig {
             rate_bits: 3,
@@ -21,5 +20,5 @@ pub fn standard-recursion-zk-config() -> Self {
             num_query_rounds: 28,
         },
     }
-}
+}  
 \end{lstlisting}

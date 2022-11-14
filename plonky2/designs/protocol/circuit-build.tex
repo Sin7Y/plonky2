@@ -1,165 +1,163 @@
 \subsubsection{circuit-build}
-    \label{circuit-build}
 
-    Plonky2 builds a full circuit with both prover and verifier data. The circuit
-    description in Plonky2 is a data structure that describes the constraint
-    relationship within the gate and among the gates, which is the same with Plonk.
-    
-    One of the difference is Plonky2 makes extensive use of custom gates and generates
-    a trace table with all used custom gates. Each row in the trace table represents
-    an instance of a type of cutom gates, which can perform a specified operation
-    designed by developers.
+Plonky2 builds a full circuit with both prover and verifier data. The circuit
+description in Plonky2 is a data structure that describes the constraint
+relationship within the gate and among the gates, which is the same with Plonk.
 
-    If the config supports enough routed wires, an instance of an arithmetic gate can
-    support several such operations. When performing an arithmetic operation, Plonky2 
-    will find an avaliable slot, of the form (row and op) for it and first check if
-    there is an exist gate instance in the circuit to use, rather than just add a new
-    one.
-    
-    For example, U32AddManyGate is a custom gate to perform addition on $ num\_addends $ 
-    different 32-bit values, plus a small carry. Defaultly, each gate has 80 routed wires
-    and 135 wires, if $ num\_addends $ is two, then a U32AddManyGate can support five
-    addition operations.
-    
-    Suppose we need to perform a new addition of two 32-bit values, and there is an gate
-    instance of such U32AddManyGate in the circuit, with only three operations used. 
-    Then we use its fourth op to perform the addition operation.
+One of the difference is Plonky2 makes extensive use of custom gates and generates
+a trace table with all used custom gates. Each row in the trace table represents
+an instance of a type of cutom gates, which can perform a specified operation
+designed by developers.
 
-    \begin{figure}[!ht]
-        \centering
-        \includegraphics[width=0.8\textwidth]{circuit-build-slot.jpg}
-        \label{fig:circuit-build-slot}
-    \end{figure}
+If the config supports enough routed wires, an instance of an arithmetic gate can
+support several such operations. When performing an arithmetic operation, Plonky2 
+will find an available slot, of the form (row and op) for it and first check if
+there is an exist gate instance in the circuit to use, rather than just add a new
+one.
 
-    If no instance of such U32AddManyGate in the circuit or all instances of U32AddManyGate are
-    full, then we need to add a new instance of U32AddManyGate with two addends to the circuit,
-    which also adds a new row to the trace table.
+For example, U32AddManyGate is a custom gate to perform addition on \verb|num_addends| 
+different 32-bit values, plus a small carry. Defaultly, each gate has 80 routed wires
+and 135 wires, if \verb|num_addends| is two, then a U32AddManyGate can support five
+addition operations.
 
-    Once all instances of custom gates are added to the circuit, the constraints of all gates
-    are also determined in the trace table. To simplify generate filter polynomials in prove
-    phase, see \href{https://hackmd.io/@sin7y/H10EO2Z5q#Combined-selector}{combined selector},
-    Plonky2 calculates all selector polynomials and related information in advance.
+Suppose we need to perform a new addition of two 32-bit values, and there is an gate
+instance of such U32AddManyGate in the circuit, with only three operations used. 
+Then we use its fourth op to perform the addition operation.
 
-    Before computing the selector polynomials, Plonky2 sorts all gates by their degrees and ID
-    to make the ordering deterministic. Then partition the gates into several groups. For each
-    group G, the number of gates in it plus each gate's degree are less than or equal to the 
-    max degree of configuration:
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{circuit-build-slot.jpg}
+    \label{fig:circuit-build-slot}
+\end{figure}
 
-    $$ |G| + max\_\{g in G\}\ g.degree() <= max\_degree $$
-    
-    The reason behind it is in prove phase, Plonky2 will calculate the filter polynomials and
-    multiply them with custom gates' constraint polynomials, the result is a polynomial whose 
-    degree is equal to $|G| + gate.degree()$. These groups are constructed greedily from the 
-    list of gates sorted by degree and ID.
+If no instance of such U32AddManyGate in the circuit or all instances of U32AddManyGate are
+full, then we need to add a new instance of U32AddManyGate with two addends to the circuit,
+which also adds a new row to the trace table.
 
-    After finishing partitioning groups, Plonky2 builds a selector polynomial for each group. 
-    For instance, a circuit uses four ordered gates: add, sub, div and mul. The four gates are
-    partitioned into two groups: g1\{ add, sub \} and g2\{ div, mul \}. Each gate has and only has
-    one instance, that is there are four rows in its trace:
+Once all instances of custom gates are added to the circuit, the constraints of all gates
+are also determined in the trace table. To simplify generate filter polynomials in prove
+phase, see \href{https://hackmd.io/@sin7y/H10EO2Z5q#Combined-selector}{combined selector},
+Plonky2 calculates all selector polynomials and related information in advance.
 
-    \begin{center}
-        \begin{tabular}{ |c|c|c|c|c|c| }
-            \hline
-            row  & w0 & w1 & w2 & w3 & gate \\
-            \hline
-            0  & a0 & b0 & c0 & d0 & div \\
-            \hline
-            1  & a1 & b1 & c1 & d1 & mul \\
-            \hline
-            2  & a2 & b2 & c2 & d2 & add \\
-            \hline
-            3  & a3 & b3 & c3 & d3 & sub \\
-            \hline
-        \end{tabular}
-    \end{center}
+Before computing the selector polynomials, Plonky2 sorts all gates by their degrees and ID
+to make the ordering deterministic. Then partition the gates into several groups. For each
+group G, the number of gates in it plus each gate's degree are less than or equal to the 
+max degree of configuration:
+\[ |G| + \max_{g \in G}\{\text{g.degree()}\} \le \text{max\_degree}. \]
 
-    To understand the process of building polynomials from groups, we first add a new column to the
-    trace table to simulate the polynomial of group g1. For each row in the trace table, the value of the cell is
-    the gate index if the gate is in g1, otherwise unused, which defined by Plonky2 is u32::MAX:
+The reason behind it is in prove phase, Plonky2 will calculate the filter polynomials and
+multiply them with custom gates' constraint polynomials, the result is a polynomial whose 
+degree is equal to $|G| + \text{gate.degree()}$. These groups are constructed greedily from the 
+list of gates sorted by degree and ID.
 
-    \begin{center}
-        \begin{tabular}{ |c|c|c|c|c|c|c| }
-            \hline
-            row & g1 & w0 & w1 & w2 & w3 & gate \\
-            \hline
-            0 & unused & a0 & b0 & c0 & d0 & div \\
-            \hline
-            1 & unused & a1 & b1 & c1 & d1 & mul \\
-            \hline
-            2 & 0 & a2 & b2 & c2 & d2 & add \\
-            \hline
-            3 & 1 & a3 & b3 & c3 & d3 & sub \\
-            \hline
-        \end{tabular}
-    \end{center}
+After finishing partitioning groups, Plonky2 builds a selector polynomial for each group. 
+For instance, a circuit uses four ordered gates: add, sub, div and mul. The four gates are
+partitioned into two groups: g1 \{ add, sub \} and g2 \{ div, mul \}. Each gate has and only has
+one instance, that is there are four rows in its trace:
 
-    Then we add another column of g2 to the trace and fill the values with same rule:
+\begin{center}
+    \begin{tabular}{ |c|c|c|c|c|c| }
+        \hline
+        row  & w0 & w1 & w2 & w3 & gate \\
+        \hline
+        0  & a0 & b0 & c0 & d0 & div \\
+        \hline
+        1  & a1 & b1 & c1 & d1 & mul \\
+        \hline
+        2  & a2 & b2 & c2 & d2 & add \\
+        \hline
+        3  & a3 & b3 & c3 & d3 & sub \\
+        \hline
+    \end{tabular}
+\end{center}
 
-    \begin{center}
-        \begin{tabular}{ |c|c|c|c|c|c|c|c| }
-            \hline
-            row & g1 & g2 & w0 & w1 & w2 & w3 & gate \\
-            \hline
-            0 & unused & 2 & a0 & b0 & c0 & d0 & div \\
-            \hline
-            1 & unused & 3 & a1 & b1 & c1 & d1 & mul \\
-            \hline
-            2 & 0 & unused & a2 & b2 & c2 & d2 & add \\
-            \hline
-            3 & 1 & unused & a3 & b3 & c3 & d3 & sub \\
-            \hline
-        \end{tabular}
-    \end{center}
+To understand the process of building polynomials from groups, we first add a new column to the
+trace table to simulate the polynomial of group g1. For each row in the trace table, the value of the cell is
+the gate index if the gate is in g1, otherwise unused, which defined by Plonky2 is u32::MAX:
 
-    Now we have two new columns with four values, we can construct two selector polynomials from 
-    them easily.
+\begin{center}
+    \begin{tabular}{ |c|c|c|c|c|c|c| }
+        \hline
+        row & g1 & w0 & w1 & w2 & w3 & gate \\
+        \hline
+        0 & unused & a0 & b0 & c0 & d0 & div \\
+        \hline
+        1 & unused & a1 & b1 & c1 & d1 & mul \\
+        \hline
+        2 & 0 & a2 & b2 & c2 & d2 & add \\
+        \hline
+        3 & 1 & a3 & b3 & c3 & d3 & sub \\
+        \hline
+    \end{tabular}
+\end{center}
 
-    Apart from selector polynomials, Plonky2 also generates several constant polynomials and sigma
-    polynomials, then commits these polynomials all together and generates a merkle tree, which is 
-    used in FRI. The last thing calculated in circuit build phase is generators, which store all 
-    information of performing operations and generating constants in the circuit. They are used to
-    generate full witness in prove phase.
+Then we add another column of g2 to the trace and fill the values with same rule:
 
-    At the end of circuit build, Plonky2 returns circuit data incluing three data structures:
-    
-    $common\ data:$
+\begin{center}
+    \begin{tabular}{ |c|c|c|c|c|c|c|c| }
+        \hline
+        row & g1 & g2 & w0 & w1 & w2 & w3 & gate \\
+        \hline
+        0 & unused & 2 & a0 & b0 & c0 & d0 & div \\
+        \hline
+        1 & unused & 3 & a1 & b1 & c1 & d1 & mul \\
+        \hline
+        2 & 0 & unused & a2 & b2 & c2 & d2 & add \\
+        \hline
+        3 & 1 & unused & a3 & b3 & c3 & d3 & sub \\
+        \hline
+    \end{tabular}
+\end{center}
 
-    \begin{lstlisting}
-        let common = CommonCircuitData {
-            config: self.config, // circuit config
-            fri_params, // fri config
-            gates, // types of gates used in circuit
-            selectors_info, // information of groups and selector polynomials
-            quotient_degree_factor, // the degree of the PLONK quotient polynomial
-            num_gate_constraints, // the largest number of constraints imposed by any gate
-            num_constants, // the number of constant wires
-            num_public_inputs, // the number of public inputs
-            k_is, // shifts used in lde
-            num_partial_products, // number of partial products in generating Z(x)
-        }
-    \end{lstlisting}
+Now we have two new columns with four values, we can construct two selector polynomials from 
+them easily.
 
-    $prover\ data:$
+Apart from selector polynomials, Plonky2 also generates several constant polynomials and sigma
+polynomials, then commits these polynomials all together and generates a merkle tree, which is 
+used in FRI. The last thing calculated in circuit build phase is generators, which store all 
+information of performing operations and generating constants in the circuit. They are used to
+generate full witness in prove phase.
 
-    \begin{lstlisting}
-        let prover_only = ProverOnlyCircuitData {
-            generators: self.generators, // store information of all operations and used to generate full witness
-            generator_indices_by_watches, // used to perform operations dependent on other operations
-            constants_sigmas_commitment, // commitment of selector polynomials, constant polynomials and sigma polynomials
-            sigmas: transpose_poly_values(sigma_vecs), // the transpose of the list of sigma polynomials
-            subgroup, // subgroup of order `degree`
-            public_inputs: self.public_inputs, // targets to be made public
-            representative_map: forest.parents, // store information of copy constrains
-            fft_root_table: Some(fft_root_table), // intermediate values used in fft
-            circuit_digest, // a digest of the circuit, which can be used to seed Fiat-Shamir
-        }
-    \end{lstlisting}
+At the end of circuit build, Plonky2 returns circuit data incluing three data structures:
 
-    $verifier\ data:$
+Common data:
 
-    \begin{lstlisting}
-        let verifier_only = VerifierOnlyCircuitData {
-            constants_sigmas_cap, // a commitment to each constant polynomial and each permutation polynomial
-            circuit_digest, // a digest of the circuit, which can be used to seed Fiat-Shamir
-        }
-    \end{lstlisting}
+\begin{lstlisting}[language=rust]
+    let common = CommonCircuitData {
+        config: self.config, // circuit config
+        fri_params, // fri config
+        gates, // types of gates used in circuit
+        selectors_info, // information of groups and selector polynomials
+        quotient_degree_factor, // the degree of the PLONK quotient polynomial
+        num_gate_constraints, // the largest number of constraints imposed by any gate
+        num_constants, // the number of constant wires
+        num_public_inputs, // the number of public inputs
+        k_is, // shifts used in lde
+        num_partial_products, // number of partial products in generating Z(x)
+    }
+\end{lstlisting}
+
+Prover data:
+
+\begin{lstlisting}[language=rust]
+    let prover_only = ProverOnlyCircuitData {
+        generators: self.generators, // store information of all operations and used to generate full witness
+        generator_indices_by_watches, // used to perform operations dependent on other operations
+        constants_sigmas_commitment, // commitment of selector polynomials, constant polynomials and sigma polynomials
+        sigmas: transpose_poly_values(sigma_vecs), // the transpose of the list of sigma polynomials
+        subgroup, // subgroup of order `degree`
+        public_inputs: self.public_inputs, // targets to be made public
+        representative_map: forest.parents, // store information of copy constrains
+        fft_root_table: Some(fft_root_table), // intermediate values used in fft
+        circuit_digest, // a digest of the circuit, which can be used to seed Fiat-Shamir
+    }
+\end{lstlisting}
+
+Verifier data:
+
+\begin{lstlisting}[language=rust]
+    let verifier_only = VerifierOnlyCircuitData {
+        constants_sigmas_cap, // a commitment to each constant polynomial and each permutation polynomial
+        circuit_digest, // a digest of the circuit, which can be used to seed Fiat-Shamir
+    }
+\end{lstlisting}

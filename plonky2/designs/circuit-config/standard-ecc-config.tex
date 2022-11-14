@@ -1,11 +1,10 @@
-\subsubsection{wide-ecc-config}
-\label{wide-ecc-config}
+\subsubsection{standard-ecc-config}
 
 
-\begin{lstlisting}
-pub fn wide_ecc_config() -> Self {
+\begin{lstlisting}[language=rust]
+pub fn standard_ecc_config() -> Self {
     Self {
-        num_wires: 234,
+        num_wires: 136,
         num_routed_wires: 80,
         num_constants: 2,
         use_base_arithmetic_gate: true,
@@ -21,5 +20,5 @@ pub fn wide_ecc_config() -> Self {
             num_query_rounds: 28,
         },
     }
-} 
+}   
 \end{lstlisting}
