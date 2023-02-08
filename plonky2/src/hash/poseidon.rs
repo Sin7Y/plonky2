@@ -236,6 +236,7 @@ pub trait Poseidon: PrimeField64 {
     #[inline(always)]
     #[unroll_for_loops]
     fn mds_layer(state_: &[Self; WIDTH]) -> [Self; WIDTH] {
+        println!("mds_layer");
         let mut result = [Self::ZERO; WIDTH];
 
         let mut state = [0u64; WIDTH];
